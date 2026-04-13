@@ -1,0 +1,7 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="60" fill="#120E1D"/>
+  <path d="M15 10 L30 10 L30 35 L15 35 Z" fill="#F8F193"/>
+  <path d="M22.5 35 L22.5 50 L30 50 L30 35 Z" fill="#F8F193"/>
+  <text x="40" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">Deboik</text>
+  <text x="40" y="42" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#F8F193">Academy</text>
+</svg>

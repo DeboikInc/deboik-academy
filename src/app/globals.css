@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --academy-primary: #79287F;
+  --academy-dark: #120E1D;
+  --academy-deep: #2D1955;
+  --academy-info: #301934;
+  --academy-yellow: #F8F193;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--academy-dark);
+  color: #EEEEED;
+}
+
+.academy-gradient {
+  background: linear-gradient(135deg, #120E1D 0%, #2D1955 50%, #120E1D 100%);
+}
+
+.academy-card {
+  background: linear-gradient(145deg, #2D1955 0%, #120E1D 100%);
+  border: 1px solid rgba(121, 40, 127, 0.3);
+}
+
+.academy-card:hover {
+  border-color: #79287F;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  @apply bg-academy-primary text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:shadow-academy-primary/30;
+}
+
+.btn-secondary {
+  @apply border-2 border-academy-primary text-academy-primary px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-academy-primary hover:text-white;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #79287F 0%, #F8F193 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-effect {
+  box-shadow: 0 0 40px rgba(121, 40, 127, 0.3);
+}
