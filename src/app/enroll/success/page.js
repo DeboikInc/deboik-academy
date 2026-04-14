@@ -75,7 +75,7 @@ export default function Success() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="/" className="btn-primary">
+              <Link href="/payment" className="btn-primary">
                 Go to Dashboard
               </Link>
               <Link href="/course" className="btn-secondary">

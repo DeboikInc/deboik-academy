@@ -12,6 +12,7 @@ export default function Enroll() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone :"",
   });
   const [errors, setErrors] = useState({});
 
@@ -19,6 +20,9 @@ export default function Enroll() {
     const newErrors = {};
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "phone is required";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -30,7 +34,7 @@ export default function Enroll() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
@@ -176,7 +180,22 @@ export default function Enroll() {
                         <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                       )}
                     </div>
-
+                      <div>
+                      <label className="block text-gray-300 mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="Enter your phone number"
+                        className={`w-full bg-academy-dark border ${
+                          errors.phone ? "border-red-500" : "border-academy-primary/30"
+                        } rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-academy-primary`}
+                      />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      )}
+                    </div>
                     <button
                       type="submit"
                       disabled={loading}
