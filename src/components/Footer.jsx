@@ -2,6 +2,8 @@
 
 import { IoSchool, IoMail, IoLogoGithub, IoLogoTwitter, IoLogoLinkedin } from "react-icons/io5";
 import Link from "next/link";
+import Image from 'next/image';
+import logo from '../../public/logo-academy.png'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,9 +21,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <IoSchool className="text-academy-yellow text-3xl" />
+              {/* <IoSchool className="text-academy-yellow text-3xl" /> */}
+              <Image
+              src={logo}
+              alt="Academy Logo"
+              width={50}
+              height={50}
+              />
               <div>
-                <span className="text-xl font-bold text-white">Deboik</span>
+                <span className="text-xl font-bold text-white"></span>
                 <span className="text-xl font-bold text-academy-yellow"> Academy</span>
               </div>
             </div>

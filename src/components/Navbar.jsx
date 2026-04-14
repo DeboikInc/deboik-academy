@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { IoMenu, IoClose, IoBook, IoSchool } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from 'next/image';
+import logo from '../../public/logo-academy.png'
 
 const Navbar = () => {
   const [isFixed, setIsFixed] = useState(false);
@@ -33,9 +35,15 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center space-x-2">
-            <IoSchool className="text-academy-yellow text-3xl" />
+            {/* <IoSchool className="text-academy-yellow text-3xl" /> */}
+            <Image
+                          src={logo}
+                          alt="Academy Logo"
+                          width={50}
+                          height={50}
+                          />
             <div className="flex">
-              <span className="text-xl font-bold text-white">Deboik</span>
+              <span ></span>
               <span className="text-xl font-bold text-academy-yellow"> Academy</span>
             </div>
           </Link>

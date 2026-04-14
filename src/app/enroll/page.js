@@ -13,6 +13,7 @@ export default function Enroll() {
     name: "",
     email: "",
     phone :"",
+    classType: "online",
   });
   const [errors, setErrors] = useState({});
 
@@ -196,6 +197,48 @@ export default function Enroll() {
                       {errors.phone && (
                         <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                       )}
+                    </div>
+                                        {/* Class Type Selection */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-3">
+                        Class Format
+                      </label>
+                      <div className="grid grid-cols-2 gap-4">
+                        {["online", "offline"].map((type) => (
+                          <label
+                            key={type}
+                            className={`relative flex items-center space-x-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
+                              ${formData.classType === type
+                                ? "border-academy-yellow bg-academy-yellow/10"
+                                : "border-academy-primary/30 hover:border-academy-primary/60 bg-academy-dark"
+                              }`}
+                          >
+                            <input
+                              type="radio"
+                              name="classType"
+                              value={type}
+                              checked={formData.classType === type}
+                              onChange={(e) => setFormData({ ...setFormData, classType: e.target.value })}
+                              className="sr-only" // hide native radio, use styled label
+                            />
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0
+                              ${formData.classType === type ? "border-academy-yellow" : "border-gray-500"}`}
+                            >
+                              {formData.classType === type && (
+                                <div className="w-2 h-2 rounded-full bg-academy-yellow" />
+                              )}
+                            </div>
+                            <div>
+                              <p className={`text-sm font-semibold capitalize ${formData.classType === type ? "text-academy-yellow" : "text-white"}`}>
+                                {type}
+                              </p>
+                              <p className="text-gray-400 text-xs">
+                                {type === "online" ? "Learn from anywhere" : "In-person sessions"}
+                              </p>
+                            </div>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                     <button
                       type="submit"
