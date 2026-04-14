@@ -17,11 +17,12 @@ export default function Enroll() {
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
     const newErrors = {};
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     }
-    if (!formData.phone.trim()) {
+    if (!phoneRegex) {
       newErrors.phone = "phone is required";
     }
     if (!formData.email.trim()) {
