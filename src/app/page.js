@@ -1,16 +1,39 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { IoCodeSlash, IoDiamond, IoRocket, IoCheckmarkCircle, IoDesktop, IoPhonePortrait, IoGlobe, IoLocation, IoCalendar, IoTime, IoBriefcase } from "react-icons/io5";
+import PricingCardWrapper from "@/components/PricingCardWrapper";
+import {
+  IoCodeSlash,
+  IoDiamond,
+  IoRocket,
+  IoCheckmarkCircle,
+  IoDesktop,
+  IoPhonePortrait,
+  IoGlobe,
+  IoLocation,
+  IoCalendar,
+  IoTime,
+  IoBriefcase,
+} from "react-icons/io5";
 import Link from "next/link";
+
+const HOME_PRICING_FEATURES = [
+  "JavaScript Fundamentals",
+  "Backend Development (Node.js)",
+  "Frontend Development (React)",
+  "Mobile Development (React Native)",
+  "Desktop Development (Electron)",
+  "Internship Opportunity",
+  "Completion Certificate",
+  "Hybrid Learning (Online / Offline)",
+];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-academy-dark">
       <Navbar />
 
-      {/* Hero Section */}
+      {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-academy-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-academy-yellow/10 rounded-full blur-3xl" />
 
@@ -42,7 +65,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Date & Duration Badges */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 mt-8">
               <div className="flex items-center gap-2">
                 <IoCalendar className="text-academy-yellow" />
@@ -61,385 +83,229 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW SECTION 2: Real-World Examples */}
+      {/* ── Real-World Examples ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Real-World Examples
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Real-World Examples</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Companies and frameworks that prove "learn once, build everywhere" works
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Web Section */}
+            {/* Web */}
             <div className="bg-academy-deep/30 p-6 rounded-xl text-center">
-              <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <IoGlobe className="text-blue-400 text-3xl" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Web</h3>
               <p className="text-gray-400">React · Next JS</p>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-3 pt-3 border-t border-academy-primary/20">
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                    alt="React"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">React</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg"
-                    alt="Vue"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Vue</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg"
-                    alt="Angular"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Angular</span>
-                </div>
+                {[
+                  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", alt: "React" },
+                  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", alt: "Vue" },
+                  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg", alt: "Angular" },
+                ].map(({ src, alt }) => (
+                  <div key={alt} className="flex flex-col items-center">
+                    <img src={src} alt={alt} className="w-6 h-6" />
+                    <span className="text-xs text-gray-500 mt-1">{alt}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Mobile Section */}
+            {/* Mobile */}
             <div className="bg-academy-deep/30 p-6 rounded-xl text-center">
-              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <IoPhonePortrait className="text-green-400 text-3xl" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Mobile</h3>
               <p className="text-gray-400">React Native</p>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-4 pt-3 border-t border-academy-primary/20">
                 <p className="text-sm text-gray-500 mt-2">Used by Facebook, Instagram, Discord</p>
-
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
-                    alt="Facebook"
-                    className="w-6 h-6 rounded"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Facebook</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
-                    alt="Instagram"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Instagram</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/discord.svg"
-                    alt="Discord"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Discord</span>
-                </div>
+                {[
+                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png", alt: "Facebook", cls: "rounded" },
+                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png", alt: "Instagram" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/discord.svg", alt: "Discord" },
+                ].map(({ src, alt, cls }) => (
+                  <div key={alt} className="flex flex-col items-center">
+                    <img src={src} alt={alt} className={`w-6 h-6 ${cls ?? ""}`} />
+                    <span className="text-xs text-gray-500 mt-1">{alt}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Desktop Section */}
+            {/* Desktop */}
             <div className="bg-academy-deep/30 p-6 rounded-xl text-center">
-              <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <IoDesktop className="text-purple-400 text-3xl" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Desktop</h3>
               <p className="text-gray-400">Electron</p>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-4 pt-3 border-t border-academy-primary/20">
                 <p className="text-sm text-gray-500 mt-2">Used by VS Code, Slack, Discord, Figma</p>
-
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/visual-studio-code-1.svg"
-                    alt="VS Code"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">VS Code</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg"
-                    alt="Slack"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Slack</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/discord.svg"
-                    alt="Discord"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Discord</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/figma-icon.svg"
-                    alt="Figma"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Figma</span>
-                </div>
+                {[
+                  { src: "https://cdn.worldvectorlogo.com/logos/visual-studio-code-1.svg", alt: "VS Code" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg", alt: "Slack" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/discord.svg", alt: "Discord" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg", alt: "Figma" },
+                ].map(({ src, alt }) => (
+                  <div key={alt} className="flex flex-col items-center">
+                    <img src={src} alt={alt} className="w-6 h-6" />
+                    <span className="text-xs text-gray-500 mt-1">{alt}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Backend Section */}
+            {/* Backend */}
             <div className="bg-academy-deep/30 p-6 rounded-xl text-center">
-              <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <IoCodeSlash className="text-yellow-400 text-3xl" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Backend</h3>
               <p className="text-gray-400">Node.js</p>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-4 pt-3 border-t border-academy-primary/20">
                 <p className="text-sm text-gray-500 mt-2">Used by Netflix, Uber, PayPal, LinkedIn</p>
-
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/netflix-logo-icon.svg"
-                    alt="Netflix"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Netflix</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/uber-2.svg"
-                    alt="Uber"
-                    className="w-6 h-6 invert"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">Uber</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/paypal-4.svg"
-                    alt="PayPal"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">PayPal</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg"
-                    alt="LinkedIn"
-                    className="w-6 h-6"
-                  />
-                  <span className="text-xs text-gray-500 mt-1">LinkedIn</span>
-                </div>
+                {[
+                  { src: "https://cdn.worldvectorlogo.com/logos/netflix-logo-icon.svg", alt: "Netflix" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/uber-2.svg", alt: "Uber", cls: "invert" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/paypal-4.svg", alt: "PayPal" },
+                  { src: "https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg", alt: "LinkedIn" },
+                ].map(({ src, alt, cls }) => (
+                  <div key={alt} className="flex flex-col items-center">
+                    <img src={src} alt={alt} className={`w-6 h-6 ${cls ?? ""}`} />
+                    <span className="text-xs text-gray-500 mt-1">{alt}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tech Stack Icons */}
+      {/* ── Tech Stack Banner ── */}
       <section className="py-12 bg-academy-dark border-y border-academy-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-500 mb-8">Build with industry-leading frameworks</p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-            <div className="flex items-center space-x-2 text-gray-400">
-              <IoCodeSlash size={24} />
-              <span className="text-xl font-semibold">React</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <IoGlobe size={24} />
-              <span className="text-xl font-semibold">Node.js</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <IoPhonePortrait size={24} />
-              <span className="text-xl font-semibold">React Native</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <IoDesktop size={24} />
-              <span className="text-xl font-semibold">Electron</span>
-            </div>
+            {[
+              { icon: <IoCodeSlash size={24} />, label: "React" },
+              { icon: <IoGlobe size={24} />, label: "Node.js" },
+              { icon: <IoPhonePortrait size={24} />, label: "React Native" },
+              { icon: <IoDesktop size={24} />, label: "Electron" },
+            ].map(({ icon, label }) => (
+              <div key={label} className="flex items-center space-x-2 text-gray-400">
+                {icon}
+                <span className="text-xl font-semibold">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* What You'll Learn */}
+      {/* ── What You'll Learn ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              What You Will Learn
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What You Will Learn</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               A comprehensive journey from JavaScript fundamentals to building production-ready applications
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-academy-deep/30 p-8 rounded-2xl">
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <IoCodeSlash className="text-academy-yellow text-2xl" />
+            {[
+              {
+                icon: <IoCodeSlash className="text-academy-yellow text-2xl" />,
+                title: "JavaScript Fundamentals",
+                desc: "Master the core concepts: variables, functions, objects, arrays, and modern ES6+ features.",
+                points: ["Variables & Data Types", "Functions & Scope", "Async JavaScript"],
+              },
+              {
+                icon: <IoGlobe className="text-academy-yellow text-2xl" />,
+                title: "Backend Development",
+                desc: "Build powerful server-side applications with Node.js and Express.",
+                points: ["Node.js & NPM", "Express & APIs", "Database Integration"],
+              },
+              {
+                icon: <IoDesktop className="text-academy-yellow text-2xl" />,
+                title: "Frontend Development",
+                desc: "Create stunning user interfaces with React and Next.js.",
+                points: ["React & Hooks", "Next.js Framework", "State Management"],
+              },
+            ].map(({ icon, title, desc, points }) => (
+              <div key={title} className="bg-academy-deep/30 p-8 rounded-2xl">
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">{icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+                <p className="text-gray-400 mb-4">{desc}</p>
+                <ul className="space-y-2">
+                  {points.map((p) => (
+                    <li key={p} className="flex items-center space-x-2 text-gray-300">
+                      <IoCheckmarkCircle className="text-academy-yellow" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">JavaScript Fundamentals</h3>
-              <p className="text-gray-400 mb-4">
-                Master the core concepts: variables, functions, objects, arrays, and modern ES6+ features.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Variables & Data Types</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Functions & Scope</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Async JavaScript</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-academy-deep/30 p-8 rounded-2xl">
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <IoGlobe className="text-academy-yellow text-2xl" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Backend Development</h3>
-              <p className="text-gray-400 mb-4">
-                Build powerful server-side applications with Node.js and Express.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Node.js & NPM</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Express & APIs</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Database Integration</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-academy-deep/30 p-8 rounded-2xl">
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <IoDesktop className="text-academy-yellow text-2xl" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Frontend Development</h3>
-              <p className="text-gray-400 mb-4">
-                Create stunning user interfaces with React and Next.js.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>React & Hooks</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Next.js Framework</span>
-                </li>
-                <li className="flex items-center space-x-2 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>State Management</span>
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* ── How It Works ── */}
       <section className="py-20 bg-academy-dark border-t border-academy-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              How It Works
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">How It Works</h2>
             <p className="text-gray-400">Join live classes in 3 simple steps</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-academy-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-academy-yellow">1</span>
+            {[
+              { n: "1", title: "Register", desc: "Sign up with your name and email to secure your seat" },
+              { n: "2", title: "Pay", desc: "Complete payment to confirm enrollment" },
+              { n: "3", title: "Attend Live Classes", desc: "Join realtime sessions with instructors and peers" },
+            ].map(({ n, title, desc }) => (
+              <div key={n} className="text-center">
+                <div className="w-20 h-20 bg-academy-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl font-bold text-academy-yellow">{n}</span>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+                <p className="text-gray-400 text-sm">{desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Register</h3>
-              <p className="text-gray-400 text-sm">
-                Sign up with your name and email to secure your seat
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-academy-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-academy-yellow">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Pay</h3>
-              <p className="text-gray-400 text-sm">
-                Complete payment to confirm enrollment
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-academy-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-academy-yellow">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Attend Live Classes</h3>
-              <p className="text-gray-400 text-sm">
-                Join realtime sessions with instructors and peers
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
+      {/* ── Benefits ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Why Choose Deboik Academy
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Why Choose Deboik Academy</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-academy-deep/50 p-6 rounded-xl border border-academy-primary/20">
-              <IoRocket className="text-academy-yellow text-2xl mb-4" />
-              <h4 className="text-white font-semibold mb-2">Hands-on Projects</h4>
-              <p className="text-gray-400 text-sm">
-                Build real-world applications as you learn
-              </p>
-            </div>
-
-            <div className="bg-academy-deep/50 p-6 rounded-xl border border-academy-primary/20">
-              <IoCodeSlash className="text-academy-yellow text-2xl mb-4" />
-              <h4 className="text-white font-semibold mb-2">Expert Instructors</h4>
-              <p className="text-gray-400 text-sm">
-                Learn from industry professionals
-              </p>
-            </div>
-
-            <div className="bg-academy-deep/50 p-6 rounded-xl border border-academy-primary/20">
-              <IoDiamond className="text-academy-yellow text-2xl mb-4" />
-              <h4 className="text-white font-semibold mb-2">Certification</h4>
-              <p className="text-gray-400 text-sm">
-                Earn a recognized completion certificate
-              </p>
-            </div>
-
-            <div className="bg-academy-deep/50 p-6 rounded-xl border border-academy-primary/20 text-center">
-              <IoBriefcase className="text-academy-yellow text-3xl mx-auto mb-3" />
-              <h4 className="text-white font-semibold">Internship Opportunity</h4>
-              <p className="text-gray-400 text-sm">Get Employed as an Intern at Deboik International</p>
-            </div>
+            {[
+              { icon: <IoRocket />, title: "Hands-on Projects", desc: "Build real-world applications as you learn" },
+              { icon: <IoCodeSlash />, title: "Expert Instructors", desc: "Learn from industry professionals" },
+              { icon: <IoDiamond />, title: "Certification", desc: "Earn a recognized completion certificate" },
+              { icon: <IoBriefcase />, title: "Internship Opportunity", desc: "Get Employed as an Intern at Deboik International" },
+            ].map(({ icon, title, desc }) => (
+              <div key={title} className="bg-academy-deep/50 p-6 rounded-xl border border-academy-primary/20">
+                <div className="text-academy-yellow text-2xl mb-4">{icon}</div>
+                <h4 className="text-white font-semibold mb-2">{title}</h4>
+                <p className="text-gray-400 text-sm">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* ── Pricing ── */}
       <section className="py-20 bg-academy-dark border-t border-academy-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -447,66 +313,16 @@ export default function Home() {
               Simple, Transparent Pricing
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              16-week full-stack JavaScript program. Online & in-person cohorts available.
+              16-week full-stack JavaScript program. Online &amp; in-person cohorts available.
             </p>
           </div>
 
           <div className="max-w-md mx-auto">
-            <div className="rounded-2xl p-8 glow-effect">
-              <div className="text-center mb-8">
-                <h3 className="text-xl text-gray-400 mb-2">Universal JS Course</h3>
-                <div className="flex items-center justify-center gap-3">
-                  <div>
-                    <span className="text-4xl font-bold text-white">₦450,000</span>
-                    <p className="text-academy-yellow text-sm mt-1">Early Bird (Limited)</p>
-                  </div>
-                  <div className="text-gray-500 line-through">₦650,000</div>
-                </div>
-                <p className="text-gray-500 text-sm mt-4">Early bird pricing ends soon</p>
-              </div>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>JavaScript Fundamentals</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Backend Development (Node.js)</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Frontend Development (React)</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Mobile Development (React Native)</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Desktop Development (Electron)</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Internship Opportunity</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Completion Certificate</span>
-                </li>
-                <li className="flex items-center space-x-3 text-gray-300">
-                  <IoCheckmarkCircle className="text-academy-yellow" />
-                  <span>Hybrid Learning (Online/Offline)</span>
-                </li>
-              </ul>
-
-              <Link href="/enroll" className="btn-primary w-full text-center block text-lg py-3">
-                Enroll Now - Reserve Your Spot
-              </Link>
-              <p className="text-center text-gray-500 text-sm mt-4">
-                Starts May 4, 2026 · Limited seats available
-              </p>
-            </div>
+            <PricingCardWrapper
+              originalPrice={650000}
+              discountPrice={450000}
+              features={HOME_PRICING_FEATURES}
+            />
           </div>
         </div>
       </section>
