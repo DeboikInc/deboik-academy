@@ -28,24 +28,19 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isFixed ? "bg-academy-dark/95 backdrop-blur-sm shadow-lg shadow-academy-primary/10" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isFixed ? "bg-academy-dark/95 backdrop-blur-sm shadow-lg shadow-academy-primary/10" : "bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center space-x-2">
-            {/* <IoSchool className="text-academy-yellow text-3xl" /> */}
+          <Link href="/" className="flex items-center">
             <Image
-                          src={logo}
-                          alt="Academy Logo"
-                          width={50}
-                          height={50}
-                          />
-            <div className="flex">
-              <span ></span>
-              <span className="text-xl font-bold text-academy-yellow"> Academy</span>
-            </div>
+              src={logo}
+              alt="Academy Logo"
+              width={150}
+              height={150}
+            />
+            <span className="text-2xl font-bold text-academy-yellow mt-2">Academy</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -53,11 +48,10 @@ const Navbar = () => {
               <Link
                 key={item.link}
                 href={item.link}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === item.link
-                    ? "text-academy-yellow"
-                    : "text-gray-300 hover:text-academy-primary"
-                }`}
+                className={`text-sm font-medium transition-colors duration-200 ${pathname === item.link
+                  ? "text-academy-yellow"
+                  : "text-gray-300 hover:text-academy-primary"
+                  }`}
               >
                 {item.title}
               </Link>
@@ -88,11 +82,10 @@ const Navbar = () => {
                 key={item.link}
                 href={item.link}
                 onClick={() => setOpen(false)}
-                className={`block py-2 px-4 rounded-lg text-sm font-medium ${
-                  pathname === item.link
-                    ? "bg-academy-primary/20 text-academy-yellow"
-                    : "text-gray-300 hover:bg-academy-primary/10"
-                }`}
+                className={`block py-2 px-4 rounded-lg text-sm font-medium ${pathname === item.link
+                  ? "bg-academy-primary/20 text-academy-yellow"
+                  : "text-gray-300 hover:bg-academy-primary/10"
+                  }`}
               >
                 {item.title}
               </Link>
