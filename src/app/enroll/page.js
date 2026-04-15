@@ -5,7 +5,7 @@ import { IoCheckmarkCircle, IoClose, IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import PricingCard from "@/components/PricingCard";
 export default function Enroll() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -17,16 +17,23 @@ export default function Enroll() {
   });
   const [errors, setErrors] = useState({});
 
+  const courseFeatures = [
+    "JavaScript Fundamentals",
+    "Backend (Node.js)",
+    "Frontend (React)",
+    "Lifetime Access",
+    "Certificate",
+  ];
   const validateForm = () => {
     const phoneRegex = /^\+?[0-9]{10,15}$/;
     const newErrors = {};
-    if (!formData.name.trim()) {
+    if (!formData.name?.trim()) {
       newErrors.name = "Name is required";
     }
-    if (!phoneRegex) {
+    if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = "phone is required";
     }
-    if (!formData.email.trim()) {
+    if (!formData.email?.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email format";
@@ -87,53 +94,12 @@ export default function Enroll() {
           <div className="max-w-md mx-auto">
             <div className="bg-academy-deep/50 rounded-2xl p-8 border border-academy-primary/20">
               {step === 1 && (
-                <>
-                  <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-white mb-2">Course Details</h2>
-                    <p className="text-gray-400">Universal JavaScript Course</p>
-                  </div>
-
-                  <div className="bg-academy-dark/50 rounded-xl p-4 mb-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-400">Original Price</span>
-                      <span className="text-gray-500 line-through">₦100,000</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white font-semibold">Early Bird Price</span>
-                      <span className="text-2xl font-bold text-academy-yellow">₦50,000</span>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center space-x-3 text-gray-300">
-                      <IoCheckmarkCircle className="text-academy-yellow" />
-                      <span>JavaScript Fundamentals</span>
-                    </li>
-                    <li className="flex items-center space-x-3 text-gray-300">
-                      <IoCheckmarkCircle className="text-academy-yellow" />
-                      <span>Backend (Node.js)</span>
-                    </li>
-                    <li className="flex items-center space-x-3 text-gray-300">
-                      <IoCheckmarkCircle className="text-academy-yellow" />
-                      <span>Frontend (React)</span>
-                    </li>
-                    <li className="flex items-center space-x-3 text-gray-300">
-                      <IoCheckmarkCircle className="text-academy-yellow" />
-                      <span>Lifetime Access</span>
-                    </li>
-                    <li className="flex items-center space-x-3 text-gray-300">
-                      <IoCheckmarkCircle className="text-academy-yellow" />
-                      <span>Certificate</span>
-                    </li>
-                  </ul>
-
-                  <button
-                    onClick={() => setStep(2)}
-                    className="btn-primary w-full"
-                  >
-                    Continue to Registration
-                  </button>
-                </>
+                <PricingCard 
+                  originalPrice={100000}
+                  discountPrice={50000}
+                  features={courseFeatures}
+                  onContinue={() => setStep(2)}
+                />
               )}
 
               {step === 2 && (
@@ -218,7 +184,7 @@ export default function Enroll() {
                               name="classType"
                               value={type}
                               checked={formData.classType === type}
-                              onChange={(e) => setFormData({ ...setFormData, classType: e.target.value })}
+                              onChange={(e) => setFormData((prev) => ({ ...prev, classType: e.target.value }))}
                               className="sr-only" // hide native radio, use styled label
                             />
                             <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0

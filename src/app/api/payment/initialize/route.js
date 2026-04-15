@@ -6,9 +6,9 @@ const ACADEMY_EMAIL = process.env.ACADEMY_EMAIL || "academy@deboik.com";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, email } = body;
-
-    if (!name || !email) {
+    const { name, email,phone,classType }  = body;
+        
+    if (!name || !email || ! phone || ! classType) {
       return NextResponse.json(
         { error: "Name and email are required" },
         { status: 400 }
@@ -28,6 +28,8 @@ export async function POST(request) {
         callback_url: `${process.env.NEXT_PUBLIC_BASE_URL}/enroll/success`,
         metadata: {
           name,
+          phone,
+          classType,
           course: "Universal JS Course",
           price: 50000,
         },
@@ -36,18 +38,21 @@ export async function POST(request) {
     });
 
     const data = await response.json();
-
+          
     if (!data.status) {
+      
       return NextResponse.json(
         { error: data.message || "Payment initialization failed" },
         { status: 400 }
       );
     }
-
+     
     return NextResponse.json({
       authorizationUrl: data.data.authorization_url,
       reference: data.data.reference,
+
     });
+    
   } catch (error) {
     console.error("Payment initialization error:", error);
     return NextResponse.json(
