@@ -25,13 +25,10 @@ const Footer = () => {
               <Image
               src={logo}
               alt="Academy Logo"
-              width={50}
-              height={50}
+              width={150}
+              height={150}
               />
-              <div>
-                <span className="text-xl font-bold text-white"></span>
-                <span className="text-xl font-bold text-academy-yellow"> Academy</span>
-              </div>
+              <span className="text-2xl font-bold text-academy-yellow mt-2">Academy</span>
             </div>
             <p className="text-gray-400 max-w-md mb-4">
               Learn JavaScript once and build for every platform. Master web, mobile, and desktop development with our comprehensive Universal JS course.
