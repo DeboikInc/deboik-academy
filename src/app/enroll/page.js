@@ -9,10 +9,13 @@ import PricingCard from "@/components/PricingCard";
 
 const ENROLL_FEATURES = [
   "JavaScript Fundamentals",
-  "Backend (Node.js)",
-  "Frontend (React)",
-  "Lifetime Access",
-  "Certificate",
+  "Backend Development (Node.js)",
+  "Frontend Development (React)",
+  "Mobile Development (React Native)",
+  "Desktop Development (Electron)",
+  "Internship Opportunity",
+  "Completion Certificate",
+  "Hybrid Learning (Online / Offline)",
 ];
 
 export default function Enroll() {
@@ -120,8 +123,8 @@ export default function Enroll() {
               {step === 1 && (
                 <div className="p-8">
                   <PricingCard
-                    originalPrice={100000}
-                    discountPrice={50000}
+                    originalPrice={650000}
+                    discountPrice={450000}
                     features={ENROLL_FEATURES}
                     onContinue={() => setStep(2)}
                     ctaLabel="Continue to Registration →"
@@ -246,7 +249,7 @@ export default function Enroll() {
                       disabled={loading}
                       className="btn-primary w-full mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {loading ? "Processing..." : "Proceed to Payment — ₦50,000"}
+                      {loading ? "Processing..." : "Proceed to Payment — ₦450,000"}
                     </button>
                   </form>
 

@@ -4,15 +4,18 @@ const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || "sk_test_your_key
 const ACADEMY_EMAIL = process.env.ACADEMY_EMAIL || "academy@deboik.com";
 
 export async function POST(request) {
+  
   try {
     const body = await request.json();
-    const { name, email,phone,classType }  = body;
-        
+    console.log("Incoming Request Body:", body);
+    const { name, email, phone, classType }  = body;
+         
     if (!name || !email || ! phone || ! classType) {
       return NextResponse.json(
-        { error: "Name and email are required" },
+        { error: "Name, email and phone are required" },
         { status: 400 }
       );
+      
     }
 
     const response = await fetch("https://api.paystack.co/transaction/initialize", {
@@ -23,7 +26,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         email,
-        amount: 5000000, // ₦50,000 in kobo
+        amount: 450000 * 100, // ₦50,000 in kobo
         currency: "NGN",
         callback_url: `${process.env.NEXT_PUBLIC_BASE_URL}/enroll/success`,
         metadata: {
@@ -31,7 +34,7 @@ export async function POST(request) {
           phone,
           classType,
           course: "Universal JS Course",
-          price: 50000,
+          price: 450000,
         },
         reference: `DEBOIK-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       }),

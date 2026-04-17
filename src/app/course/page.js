@@ -12,10 +12,14 @@ import {
 } from "react-icons/io5";
 
 const COURSE_PRICING_FEATURES = [
-  "All 3 Modules",
-  "6 Real-world Projects",
-  "Lifetime Access",
+  "JavaScript Fundamentals",
+  "Backend Development (Node.js)",
+  "Frontend Development (React)",
+  "Mobile Development (React Native)",
+  "Desktop Development (Electron)",
+  "Internship Opportunity",
   "Completion Certificate",
+  "Hybrid Learning (Online / Offline)",
 ];
 
 export default function Course() {
@@ -265,8 +269,8 @@ export default function Course() {
           </div>
           <div className="max-w-md mx-auto">
             <PricingCardWrapper
-              originalPrice={100000}
-              discountPrice={50000}
+              originalPrice={650000}
+              discountPrice={450000}
               features={COURSE_PRICING_FEATURES}
             />
           </div>
