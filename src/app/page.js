@@ -233,8 +233,8 @@ export default function Home() {
               {
                 icon: <IoDesktop className="text-academy-yellow text-2xl" />,
                 title: "Frontend Development",
-                desc: "Create stunning user interfaces with React and Next.js.",
-                points: ["React & Hooks", "Next.js Framework", "State Management"],
+                desc: "Create stunning user interfaces with React, or React Native, Electron or Next.js.",
+                points: ["React, Hooks & Core Components", "Electron Architecture", "Next.js Framework", "State Management"],
               },
             ].map(({ icon, title, desc, points }) => (
               <div key={title} className="bg-academy-deep/30 p-8 rounded-2xl">

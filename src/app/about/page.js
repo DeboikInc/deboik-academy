@@ -1,13 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { IoSchool, IoPeople, IoHeart, IoRocket, IoVideocam, IoLocation } from "react-icons/io5";
+import { IoSchool, IoPeople, IoHeart, IoRocket, IoVideocam, IoLocation, IoCheckmarkCircle } from "react-icons/io5";
 import Link from "next/link";
 
 export default function About() {
   return (
     <main className="min-h-screen bg-academy-dark">
       <Navbar />
-      
+
       {/* Hero */}
       <section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,46 +52,147 @@ export default function About() {
         </div>
       </section>
 
+      {/* The Reality Check - with recognizable company logos */}
+      <section className="py-20 bg-academy-deep/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                The Reality Check
+              </h2>
+              <div className="space-y-4">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-5">
+                  <p className="text-gray-300">
+                    "Learn React for web. Then Swift for iOS. Then Kotlin for Android. Then Python for backend."
+                  </p>
+                  <p className="text-red-400 font-bold mt-2">That's 4 different languages.</p>
+                </div>
+                <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-5">
+                  <p className="text-academy-yellow font-bold mb-2">We say:</p>
+                  <p className="text-gray-300">Learn JavaScript once. Build for all platforms.</p>
+                  <p className="text-green-400 font-bold mt-2">One language. Infinite possibilities.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-academy-deep/50 rounded-xl p-6 border border-academy-primary/20">
+              <h3 className="text-white font-bold text-center mb-4">Trusted by companies building cross-platform</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {/* remove redundancy */}
+                {
+                  [
+                    { name: "Netflix", logo: "https://cdn.worldvectorlogo.com/logos/netflix-logo-icon.svg", tech: "Node.js" },
+                    { name: "Uber", csc: 'inverted', logo: "https://cdn.worldvectorlogo.com/logos/uber-2.svg", tech: "Node.js" },
+                    { name: "Discord", logo: "https://cdn.worldvectorlogo.com/logos/discord.svg", tech: "Electron" },
+                    { name: "Facebook", logo: "https://cdn.worldvectorlogo.com/logos/facebook-messenger-3.svg", tech: "React Native" },
+                    { name: "VS Code", logo: "https://cdn.worldvectorlogo.com/logos/visual-studio-code-1.svg", tech: "Electron" },
+                    { name: "Trello", logo: "https://cdn.worldvectorlogo.com/logos/trello.svg", tech: "Node.js" },]
+                    .map((company, index) => (
+                      <div key={index} className="bg-white/5 rounded-lg p-3 text-center">
+                        <div className="text-blue-400 font-bold flex items-center justify-center">
+                          <img src={company.logo} className={`w-8 h-6 ${company.csc === 'inverted' ? 'invert' : ''}`} />
+                        </div>
+                        <div className="text-xs text-gray-500">{company.tech}</div>
+                      </div>
+                    ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Teaching Approach */}
-      <section className="py-20">
+      <section className="py-20 bg-academy-deep/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Our Teaching Approach
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              We offer flexible learning options to suit your lifestyle
+              Choose the learning path that works best for you — or combine both for maximum results
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="academy-card p-8 rounded-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Online Learning - Live Zoom/Meet */}
+            <div className="academy-card p-8 rounded-2xl hover:transform hover:scale-[1.02] transition-all duration-300">
               <div className="flex items-center space-x-4 mb-6">
                 <div className="w-14 h-14 bg-academy-primary/20 rounded-xl flex items-center justify-center">
                   <IoVideocam className="text-academy-yellow text-2xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white">Online Learning</h3>
-                  <p className="text-gray-400 text-sm">Learn from anywhere</p>
+                  <p className="text-academy-yellow text-sm">Live Zoom/Meet · Real-time interaction</p>
                 </div>
               </div>
-              <p className="text-gray-400">
-                Access comprehensive video tutorials, coding exercises, and projects from the comfort of your home. Learn at your own pace with lifetime access to all materials.
+
+              <p className="text-gray-400 mb-6">
+                Join live, instructor-led sessions via Zoom/Google Meet. Interact with your teacher and classmates in real-time, ask questions, and get immediate feedback — all from the comfort of your home.
               </p>
+
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Live weekly sessions with industry experts</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Recorded for review anytime · Lifetime access</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Breakout rooms for pair programming & group projects</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Live Q&A and code reviews during class</span>
+                </div>
+              </div>
             </div>
 
-            <div className="academy-card p-8 rounded-2xl">
+            {/* Onsite Learning */}
+            <div className="academy-card p-8 rounded-2xl hover:transform hover:scale-[1.02] transition-all duration-300">
               <div className="flex items-center space-x-4 mb-6">
                 <div className="w-14 h-14 bg-academy-primary/20 rounded-xl flex items-center justify-center">
                   <IoLocation className="text-academy-yellow text-2xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white">Onsite Learning</h3>
-                  <p className="text-gray-400 text-sm">In-person training</p>
+                  <p className="text-academy-yellow text-sm">In-person training · Physical classroom</p>
                 </div>
               </div>
-              <p className="text-gray-400">
-                Join our intensive in-person bootcamps for hands-on learning, direct mentorship, and collaborative projects. Perfect for those who thrive in structured environments.
+
+              <p className="text-gray-400 mb-6">
+                Attend classes at our physical location for face-to-face instruction, direct mentorship, and hands-on projects. Perfect for those who thrive in structured, collaborative environments.
+              </p>
+
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">In-person mentorship & immediate feedback</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Collaborative pair programming & team projects</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Networking with peers & industry professionals</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <IoCheckmarkCircle className="text-academy-yellow text-lg mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">Access to computer lab & study spaces</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Hybrid Option Highlight */}
+          <div className="mt-8 text-center">
+            <div className="inline-block bg-academy-primary/10 border border-academy-primary/20 rounded-xl p-4 max-w-2xl mx-auto">
+              <p className="text-gray-300">
+                <span className="text-academy-yellow font-bold">🎯 Best of both worlds:</span> Many students choose the <span className="text-white font-semibold">Hybrid approach</span> — attend live Zoom sessions during the week and join onsite weekend workshops for hands-on practice!
               </p>
             </div>
           </div>
