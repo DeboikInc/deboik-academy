@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
 import logo from '../../public/logo-academy.png'
+import Whatsapp from '@/components/Whatsapp'
+
 
 const Navbar = () => {
   const [isFixed, setIsFixed] = useState(false);
@@ -27,10 +29,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isFixed ? "bg-academy-dark/95 backdrop-blur-sm shadow-lg shadow-academy-primary/10" : "bg-transparent"
-        }`}
-    >
+    <nav>
+      <section className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isFixed ? "bg-academy-dark/95 backdrop-blur-sm shadow-lg shadow-academy-primary/10" : "bg-transparent"
+        }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
@@ -63,6 +64,7 @@ const Navbar = () => {
               <IoBook />
               <span>Enroll Now</span>
             </Link>
+
           </div>
 
           <button
@@ -79,14 +81,14 @@ const Navbar = () => {
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((item) => (
               <Link
-                key={item.link}
-                href={item.link}
-                onClick={() => setOpen(false)}
-                className={`block py-2 px-4 rounded-lg text-sm font-medium ${pathname === item.link
-                  ? "bg-academy-primary/20 text-academy-yellow"
-                  : "text-gray-300 hover:bg-academy-primary/10"
-                  }`}
-              >
+              key={item.link}
+              href={item.link}
+              onClick={() => setOpen(false)}
+              className={`block py-2 px-4 rounded-lg text-sm font-medium ${pathname === item.link
+                ? "bg-academy-primary/20 text-academy-yellow"
+                : "text-gray-300 hover:bg-academy-primary/10"
+                }`}
+                >
                 {item.title}
               </Link>
             ))}
@@ -100,6 +102,8 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      </section>
+      <Whatsapp />
     </nav>
   );
 };
