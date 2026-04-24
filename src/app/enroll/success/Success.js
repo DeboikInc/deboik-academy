@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IoCheckmarkCircle, IoArrowForward, IoMail, IoSchool } from "react-icons/io5";
+import { IoCheckmarkCircle, IoArrowForward, IoMail, IoSchool, IoLogoSlack } from "react-icons/io5";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -54,15 +54,21 @@ export default function Success() {
               <h3 className="text-lg font-semibold text-white mb-4">What's Next?</h3>
               <ul className="space-y-4 text-left">
                 <li className="flex items-start space-x-3">
+                  <IoLogoSlack className="text-academy-yellow mt-1" />
+                  <span className="text-gray-300">
+                    You will be added to slack channel.
+                  </span>
+                </li>
+                <li className="flex items-start space-x-3">
                   <IoMail className="text-academy-yellow mt-1" />
                   <span className="text-gray-300">
-                    Check your email for course access details
+                    Check your email for the access details.
                   </span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <IoSchool className="text-academy-yellow mt-1" />
                   <span className="text-gray-300">
-                    Access your course dashboard to start learning
+                    Student success will reach out to you.
                   </span>
                 </li>
                 <li className="flex items-start space-x-3">
