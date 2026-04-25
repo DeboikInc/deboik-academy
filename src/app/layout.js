@@ -1,6 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -17,12 +17,16 @@ export const metadata = {
     icon: '/favicon.ico',
     apple: '/apple-icon.png', // If you have a mobile version
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
     </html>
   );
 }
