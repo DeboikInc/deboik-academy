@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PricingCardWrapper from "@/components/PricingCardWrapper";
-
+import CohortBanner from "@/components/CohortBanner";
 import {
   IoCodeSlash,
   IoDiamond,
@@ -65,21 +65,7 @@ export default function Home() {
                 View Curriculum
               </Link>
             </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 mt-8">
-              <div className="flex items-center gap-2">
-                <IoCalendar className="text-academy-yellow" />
-                <span>Starts May 4, 2026</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <IoTime className="text-academy-yellow" />
-                <span>16 Weeks (4 Months)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <IoLocation className="text-academy-yellow" />
-                <span>Hybrid Learning</span>
-              </div>
-            </div>
+        <CohortBanner/>
           </div>
         </div>
       </section>

@@ -17,7 +17,8 @@ const Navbar = () => {
   const navLinks = [
     { title: "Home", link: "/" },
     { title: "About", link: "/about" },
-    { title: "Course", link: "/course" },
+    { title: "Course", link: "/course" },,
+    {title:  "Admin" , link: "/admin/login"}
   ];
 
   useEffect(() => {

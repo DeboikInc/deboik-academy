@@ -1,0 +1,22 @@
+[
+  {
+    "name": "may cohort",
+    "startDate": "2026-05-10",
+    "endDate": "2026-09-10",
+    "enrollmentDeadline": "2026-05-20",
+    "maxSeats": 30,
+    "status": "upcoming",
+    "classFormat": "online",
+    "packageIds": [
+      "fullstack",
+      "js-fundamentals",
+      "backend-node",
+      "desktop-electron",
+      "mobile-react",
+      "frontend-react"
+    ],
+    "notes": "",
+    "isPublic": true,
+    "id": "1777981351430"
+  }
+]

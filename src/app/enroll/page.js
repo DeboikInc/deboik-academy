@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { IoArrowBack, IoCheckmarkCircle, IoSaveOutline, IoTimeOutline, IoLockClosed } from "react-icons/io5";
-import Link from "next/link";
-import { sendGAEvent } from '@next/third-parties/google'
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -224,7 +222,6 @@ export default function Enroll() {
   // Step 3: Make Payment
   const handleMakePayment = async () => {
     setLoading(true);
-     sendGAEvent('event', 'button_clicked', { value: 'payment made' })
     try {
       const response = await fetch("/api/payment/initialize", {
         method: "POST",
