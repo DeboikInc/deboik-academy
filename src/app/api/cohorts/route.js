@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
+
 const filePath = path.join(process.cwd(), "src/data/cohorts.json");
 
 const ensureFile = () => {

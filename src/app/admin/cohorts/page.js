@@ -9,6 +9,7 @@ import {
 } from "react-icons/io5";
 import { INDIVIDUAL_MODULES, fmt } from "@/lib/packages";
 import cohort from "@/data/cohorts.json"
+import Image from 'next/image';
 
 /* ─── helpers ─── */
 const fmtDate   = (iso) => iso ? new Date(iso).toLocaleDateString("en-NG", { year:"numeric", month:"short", day:"numeric" }) : "—";
@@ -270,10 +271,16 @@ export default function AdminCohorts() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="text-academy-yellow font-bold text-lg tracking-tight">
-              Deboik<span className="text-white">Admin</span>
+              <Image
+                            src={"/logo-academy.png"}
+                            alt="Academy Logo"
+                            width={150}
+                            height={150}
+                          />
+                          
             </Link>
             <span className="text-gray-600">/</span>
-            <span className="text-gray-300 text-sm">Cohorts</span>
+            <span className="text-2xl font-bold text-academy-yellow mt-2">Academy</span>
           </div>
           <div className="flex items-center gap-3">
             <button onClick={load} className="text-gray-400 hover:text-white p-2 transition-colors" title="Refresh">
