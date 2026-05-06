@@ -112,8 +112,8 @@ export default function Home() {
               <div className="mt-3 flex flex-wrap items-center justify-center gap-4 pt-3 border-t border-academy-primary/20">
                 <p className="text-sm text-gray-500 mt-2">Used by Facebook, Instagram, Discord</p>
                 {[
-                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png", alt: "Facebook", cls: "rounded" },
-                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png", alt: "Instagram" },
+                  { src: "https://cdn.simpleicons.org/facebook/1877F2", alt: "Facebook", cls: "rounded" },
+                  { src: "https://cdn.simpleicons.org/instagram/E4405F", alt: "Instagram" },
                   { src: "https://cdn.worldvectorlogo.com/logos/discord.svg", alt: "Discord" },
                 ].map(({ src, alt, cls }) => (
                   <div key={alt} className="flex flex-col items-center">

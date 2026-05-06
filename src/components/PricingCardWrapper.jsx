@@ -12,7 +12,6 @@ export default function PricingCardWrapper({ originalPrice, discountPrice, featu
       discountPrice={discountPrice}
       features={features}
       onContinue={() => router.push("/enroll")}
-      ctaLabel={`Enroll Now — ₦${discountPrice.toLocaleString("en-NG")}`}
     />
   );
 }

@@ -1,17 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PricingCardWrapper from "@/components/PricingCardWrapper";
+import CohortBanner from "@/components/CohortBanner";
 import {
-  IoCodeSlash,
-  IoGlobe,
-  IoDesktop,
-  IoTime,
-  IoCheckmarkCircle,
-  IoDiamond,
-  IoRocket,
-  IoPhonePortrait,
-  IoLogoAndroid,
-  IoLogoApple,
+  IoCodeSlash, IoGlobe, IoDesktop, IoTime, IoCheckmarkCircle,
+  IoDiamond, IoRocket, IoPhonePortrait, IoLogoAndroid, IoLogoApple,
 } from "react-icons/io5";
 
 const COURSE_PRICING_FEATURES = [
@@ -43,6 +36,10 @@ export default function Course() {
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               A comprehensive program designed to take you from beginner to job-ready developer
             </p>
+            {/* Banner sits just below the hero text, above the stats */}
+            <div className="mt-8 max-w-3xl mx-auto">
+              <CohortBanner variant="compact" />
+            </div>
           </div>
         </div>
       </section>
@@ -66,7 +63,7 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── Module 01: JS Fundamentals ── */}
+      {/* ── Module 01 ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="academy-card rounded-2xl p-8 md:p-12">
@@ -79,7 +76,6 @@ export default function Course() {
                 <p className="text-gray-400">Building a solid foundation for all platforms</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">What You'll Learn</h3>
@@ -123,7 +119,7 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── Module 02: Backend ── */}
+      {/* ── Module 02 ── */}
       <section className="py-20 bg-academy-dark border-t border-academy-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="academy-card rounded-2xl p-8 md:p-12">
@@ -136,7 +132,6 @@ export default function Course() {
                 <p className="text-gray-400">Server-side mastery for web and mobile apps</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">What You'll Learn</h3>
@@ -180,7 +175,7 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── Module 03: Frontend (React) ── */}
+      {/* ── Module 03 ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="academy-card rounded-2xl p-8 md:p-12">
@@ -193,7 +188,6 @@ export default function Course() {
                 <p className="text-gray-400">Modern UI engineering for web</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">What You'll Learn</h3>
@@ -237,7 +231,7 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── NEW Module 04: Mobile (React Native) ── */}
+      {/* ── Module 04 ── */}
       <section className="py-20 bg-academy-dark border-t border-academy-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="academy-card rounded-2xl p-8 md:p-12">
@@ -250,7 +244,6 @@ export default function Course() {
                 <p className="text-gray-400">Build iOS & Android apps with one codebase</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">What You'll Learn</h3>
@@ -305,7 +298,7 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── NEW Module 05: Desktop (Electron) ── */}
+      {/* ── Module 05 ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="academy-card rounded-2xl p-8 md:p-12">
@@ -318,7 +311,6 @@ export default function Course() {
                 <p className="text-gray-400">Build cross-platform desktop apps (Windows, Mac, Linux)</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">What You'll Learn</h3>
@@ -386,7 +378,6 @@ export default function Course() {
               By the end of this 16-week program, you'll be able to build for every platform
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: <IoRocket />, title: "Build Full-Stack Web Apps", desc: "Create complete web applications from scratch, both frontend and backend" },
@@ -406,37 +397,26 @@ export default function Course() {
         </div>
       </section>
 
-      {/* ── Why These Technologies Matter ── */}
+      {/* ── Stack overview ── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">The Complete Cross-Platform Stack</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              One language. Every platform. Real-world applications.
-            </p>
+            <p className="text-gray-400 max-w-2xl mx-auto">One language. Every platform. Real-world applications.</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="text-center p-4">
-              <IoGlobe className="text-academy-yellow text-3xl mx-auto mb-2" />
-              <p className="text-white font-semibold">Web</p>
-              <p className="text-gray-500 text-sm">React / Next.js</p>
-            </div>
-            <div className="text-center p-4">
-              <IoPhonePortrait className="text-academy-yellow text-3xl mx-auto mb-2" />
-              <p className="text-white font-semibold">Mobile</p>
-              <p className="text-gray-500 text-sm">React Native</p>
-            </div>
-            <div className="text-center p-4">
-              <IoDesktop className="text-academy-yellow text-3xl mx-auto mb-2" />
-              <p className="text-white font-semibold">Desktop</p>
-              <p className="text-gray-500 text-sm">Electron</p>
-            </div>
-            <div className="text-center p-4">
-              <IoCodeSlash className="text-academy-yellow text-3xl mx-auto mb-2" />
-              <p className="text-white font-semibold">Backend</p>
-              <p className="text-gray-500 text-sm">Node.js</p>
-            </div>
+            {[
+              { icon: <IoGlobe />, label: "Web", sub: "React / Next.js" },
+              { icon: <IoPhonePortrait />, label: "Mobile", sub: "React Native" },
+              { icon: <IoDesktop />, label: "Desktop", sub: "Electron" },
+              { icon: <IoCodeSlash />, label: "Backend", sub: "Node.js" },
+            ].map(({ icon, label, sub }) => (
+              <div key={label} className="text-center p-4">
+                <div className="text-academy-yellow text-3xl mx-auto mb-2">{icon}</div>
+                <p className="text-white font-semibold">{label}</p>
+                <p className="text-gray-500 text-sm">{sub}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -447,6 +427,10 @@ export default function Course() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Enroll?</h2>
             <p className="text-gray-400">Early bird pricing ends soon — limited seats available.</p>
+          </div>
+          {/* Full banner above the pricing card */}
+          <div className="max-w-md mx-auto mb-8">
+            <CohortBanner variant="full" />
           </div>
           <div className="max-w-md mx-auto">
             <PricingCardWrapper
