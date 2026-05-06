@@ -38,7 +38,6 @@ export default function Course() {
             </p>
             {/* Banner sits just below the hero text, above the stats */}
             <div className="mt-8 max-w-3xl mx-auto">
-              <CohortBanner variant="compact" />
             </div>
           </div>
         </div>
@@ -429,9 +428,9 @@ export default function Course() {
             <p className="text-gray-400">Early bird pricing ends soon — limited seats available.</p>
           </div>
           {/* Full banner above the pricing card */}
-          <div className="max-w-md mx-auto mb-8">
+          {/* <div className="max-w-md mx-auto mb-8">
             <CohortBanner variant="full" />
-          </div>
+          </div> */}
           <div className="max-w-md mx-auto">
             <PricingCardWrapper
               originalPrice={650000}

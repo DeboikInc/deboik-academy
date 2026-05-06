@@ -10,9 +10,6 @@ import {
   IoDesktop,
   IoPhonePortrait,
   IoGlobe,
-  IoLocation,
-  IoCalendar,
-  IoTime,
   IoBriefcase,
 } from "react-icons/io5";
 import Link from "next/link";
@@ -65,7 +62,6 @@ export default function Home() {
                 View Curriculum
               </Link>
             </div>
-        <CohortBanner/>
           </div>
         </div>
       </section>

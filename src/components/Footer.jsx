@@ -1,6 +1,6 @@
 "use client";
 
-import { IoSchool, IoMail, IoLogoGithub, IoLogoTwitter, IoLogoLinkedin } from "react-icons/io5";
+import { IoSchool, IoMail, IoLogoInstagram, IoLogoLinkedin,IoLogoFacebook } from "react-icons/io5";
 import Link from "next/link";
 import Image from 'next/image';
 import logo from '../../public/logo-academy.png'
@@ -34,15 +34,18 @@ const Footer = () => {
               Learn JavaScript once and build for every platform. Master web, mobile, and desktop development with our comprehensive Universal JS course.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-academy-primary transition-colors">
-                <IoLogoTwitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-academy-primary transition-colors">
-                <IoLogoLinkedin size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-academy-primary transition-colors">
-                <IoLogoGithub size={20} />
-              </a>
+              <Link href="https://www.facebook.com/deboik.international" target="_blank" className="text-gray-400 hover:text-gray-500 flex justify-start">
+                  <IoLogoFacebook size={25} className="mr-3" />
+                  Facebook
+                </Link>
+              <Link href="https://www.linkedin.com/company/deboikinternational/" target="_blank" className="text-gray-400 hover:text-gray-500  flex justify-start">
+                  <IoLogoLinkedin size={25} className="mr-3" />
+                  LinkedIn
+                </Link>
+               <Link href="https://www.instagram.com/deboik.international/" target="_blank" className="text-gray-400 hover:text-gray-500  flex justify-start">
+                  <IoLogoInstagram size={25} className="mr-3" />
+                  Instagram
+                </Link>
             </div>
           </div>
 
