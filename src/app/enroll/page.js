@@ -418,7 +418,7 @@ const { cohort, isEarlyBird } = useCohort();
         <div>
           <label className="block text-gray-300 mb-1.5 text-sm font-medium">Class Preference</label>
           <div className="flex gap-3">
-            {[["online", "Online"], ["offline", "In-Person (Lagos)"], ["hybrid", "Hybrid"]].map(([val, label]) => (
+            {[["online", "Online"], ["offline","Offline"]].map(([val, label]) => (
               <button key={val} onClick={() => setFormData(p => ({ ...p, classType: val }))}
                 className={`flex-1 py-2.5 rounded-lg text-sm font-medium border-2 transition-all ${
                   formData.classType === val

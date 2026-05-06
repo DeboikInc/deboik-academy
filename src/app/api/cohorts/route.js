@@ -46,9 +46,9 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  const authHeader = request.headers.get("authorization") || "";
+  const authHeader = request.cookies.get("admin_token")?.value || "";
   const token = authHeader.replace("Bearer ", "");
-  const expected = process.env.ADMIN_PASSWORD || "";
+  const expected = process.env.ADMIN_SECRET || "";
 
   if (!expected || !safeEqual(token, expected)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
