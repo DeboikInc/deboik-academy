@@ -1,9 +1,9 @@
 [
   {
     "name": "may cohort",
-    "startDate": "2026-05-10",
-    "endDate": "2026-09-10",
-    "enrollmentDeadline": "2026-05-20",
+    "startDate": "2026-05-4",
+    "endDate": "2026-08-10",
+    "enrollmentDeadline": "2026-05-03",
     "maxSeats": 30,
     "status": "upcoming",
     "classFormat": "online",

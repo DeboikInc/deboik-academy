@@ -180,7 +180,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
             {[
               { icon: <IoCodeSlash size={24} />, label: "React" },
-              { icon: <IoGlobe size={24} />, label: "Node.js" },
+              { icon: <IoGlobe size={24} />, label: "Express.js" },
               { icon: <IoPhonePortrait size={24} />, label: "React Native" },
               { icon: <IoDesktop size={24} />, label: "Electron" },
             ].map(({ icon, label }) => (
