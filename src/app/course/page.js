@@ -7,6 +7,11 @@ import {
   IoDiamond, IoRocket, IoPhonePortrait, IoLogoAndroid, IoLogoApple,
 } from "react-icons/io5";
 
+export const metadata = {
+  title: "Course",
+  description: "A comprehensive 16-week program covering web, mobile, desktop and backend development.",
+};
+
 const COURSE_PRICING_FEATURES = [
   "JavaScript Fundamentals",
   "Backend Development (Node.js)",

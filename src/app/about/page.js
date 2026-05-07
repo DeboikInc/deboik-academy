@@ -3,7 +3,10 @@ import Footer from "@/components/Footer";
 import { IoSchool, IoPeople, IoHeart, IoRocket, IoVideocam, IoLocation, IoCheckmarkCircle } from "react-icons/io5";
 import Link from "next/link";
 
+export const metadata = { title: "About" };
+
 export default function About() {
+  
   return (
     <main className="min-h-screen bg-academy-dark">
       <Navbar />
