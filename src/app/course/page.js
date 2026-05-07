@@ -403,20 +403,26 @@ export default function Course() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">The Complete Cross-Platform Stack</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">One language. Every platform. Real-world applications.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {[
-              { icon: <IoGlobe />, label: "Web", sub: "React / Next.js" },
-              { icon: <IoPhonePortrait />, label: "Mobile", sub: "React Native" },
-              { icon: <IoDesktop />, label: "Desktop", sub: "Electron" },
-              { icon: <IoCodeSlash />, label: "Backend", sub: "Node.js" },
-            ].map(({ icon, label, sub }) => (
-              <div key={label} className="text-center p-4">
-                <div className="text-academy-yellow text-3xl mx-auto mb-2">{icon}</div>
-                <p className="text-white font-semibold">{label}</p>
-                <p className="text-gray-500 text-sm">{sub}</p>
-              </div>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+  {[
+    { icon: <IoGlobe />, label: "Web", sub: "React / Next.js" },
+    { icon: <IoPhonePortrait />, label: "Mobile", sub: "React Native" },
+    { icon: <IoDesktop />, label: "Desktop", sub: "Electron" },
+    { icon: <IoCodeSlash />, label: "Backend", sub: "Node.js" },
+  ].map(({ icon, label, sub }) => (
+    <div key={label} className="flex flex-col items-center text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+      {/* Icon Container with Flex Centering */}
+      <div className="w-14 h-14 flex items-center justify-center text-academy-yellow text-4xl mb-4 bg-academy-yellow/10 rounded-full">
+        {icon}
+      </div>
+      
+      <div>
+        <p className="text-white font-bold text-lg">{label}</p>
+        <p className="text-gray-400 text-sm mt-1">{sub}</p>
+      </div>
+    </div>
+  ))}
+</div>
         </div>
       </section>
 

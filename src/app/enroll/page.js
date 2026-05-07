@@ -10,12 +10,14 @@ import {
   IoCheckmark,
   IoCard,
   IoQrCode,
+  IoAddCircleOutline,
+  IoRemoveCircleOutline,
 } from "react-icons/io5";
 import { sendGAEvent } from "@next/third-parties/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CohortBanner from "@/components/CohortBanner";
-import { useCohort } from "@/hooks/useCohort"; // Ensure this path matches your project structure
+import { useCohort } from "@/hooks/useCohort";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -45,42 +47,75 @@ const BANK_DETAILS = {
   bankName:      "First City Monument Bank (FCMB)",
 };
 
-const getInstallmentPlans = (isEarlyBird) => ({
-  full_payment: {
-    name: "Pay in Full", badge: "RECOMMENDED",
-    savings: isEarlyBird ? "Save ₦200,000" : "Standard pricing",
-    total: isEarlyBird ? 450000 : 650000,
-    installments: [{ amount: isEarlyBird ? 450000 : 650000, due: "Immediately", description: "One-time payment" }],
-    recommended: true,
-  },
-  two_installments: {
-    name: "2 Installments", badge: null, savings: "No extra fee",
-    total: isEarlyBird ? 470000 : 670000,
-    installments: [
-      { amount: isEarlyBird ? 235000 : 335000, due: "Immediately", description: "Starts your enrollment" },
-      { amount: isEarlyBird ? 235000 : 335000, due: "In 2 Months",  description: "Before Module 3" },
-    ],
-    recommended: false,
-  },
-  three_installments: {
-    name: "3 Installments", badge: null, savings: "Small convenience fee",
-    total: isEarlyBird ? 495000 : 695000,
-    installments: [
-      { amount: isEarlyBird ? 165000 : 231667, due: "Immediately", description: "Starts your enrollment" },
-      { amount: isEarlyBird ? 165000 : 231667, due: "In 2 Months",  description: "Before Module 3" },
-      { amount: isEarlyBird ? 165000 : 231666, due: "In 3 Months",  description: "Before Module 5" },
-    ],
-    recommended: false,
-  },
-});
+// Minimum and maximum installments for the 3+ plan
+const MIN_INSTALLMENTS = 3;
+const MAX_INSTALLMENTS = 6;
+
+/**
+ * Generates installment plans.
+ * @param {boolean} isEarlyBird
+ * @param {number}  nPlusCount  – the chosen count for the "3+" plan (3–6)
+ */
+const getInstallmentPlans = (isEarlyBird, nPlusCount = 3) => {
+  const base     = isEarlyBird ? 450000 : 650000;
+  const twoTotal = base + 20000;
+  // Convenience fee grows by ₦25,000 for each installment beyond 2
+  const nPlusTotal = base + 20000 + 25000 * (nPlusCount - 2);
+
+  // Distribute nPlusTotal as evenly as possible; last slice absorbs remainder
+  const buildInstallments = (total, count) => {
+    const even      = Math.floor(total / count);
+    const remainder = total - even * count;
+    const dueLabels = ["Immediately", "In 1 Month", "In 2 Months", "In 3 Months", "In 4 Months", "In 5 Months"];
+    const descLabels = [
+      "Starts your enrollment",
+      "Before Module 2",
+      "Before Module 3",
+      "Before Module 4",
+      "Before Module 5",
+      "Before Module 6",
+    ];
+    return Array.from({ length: count }, (_, i) => ({
+      amount:      i === count - 1 ? even + remainder : even,
+      due:         dueLabels[i]  ?? `In ${i} Months`,
+      description: descLabels[i] ?? `Before Module ${i + 1}`,
+    }));
+  };
+
+  return {
+    full_payment: {
+      name: "Pay in Full",
+      badge: "RECOMMENDED",
+      savings: isEarlyBird ? "Save ₦200,000" : "Standard pricing",
+      total: base,
+      installments: [{ amount: base, due: "Immediately", description: "One-time payment" }],
+      recommended: true,
+    },
+    two_installments: {
+      name: "2 Installments",
+      badge: null,
+      savings: "No extra fee",
+      total: twoTotal,
+      installments: buildInstallments(twoTotal, 2),
+      recommended: false,
+    },
+    three_plus_installments: {
+      name: `${nPlusCount} Installments`,
+      badge: null,
+      savings: "Small convenience fee",
+      total: nPlusTotal,
+      installments: buildInstallments(nPlusTotal, nPlusCount),
+      recommended: false,
+    },
+  };
+};
 
 const fmt = (n) => `₦${Number(n).toLocaleString()}`;
 
 // ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function Enroll() {
-  // Integrate useCohort to handle early bird state reliably
-const { cohort, isEarlyBird } = useCohort();
+  const { cohort, isEarlyBird } = useCohort();
 
   const [step,                setStep]                = useState(1);
   const [loading,             setLoading]             = useState(false);
@@ -90,6 +125,8 @@ const { cohort, isEarlyBird } = useCohort();
   const [pricingType,         setPricingType]         = useState("fullstack");
   const [selectedModules,     setSelectedModules]     = useState([]);
   const [selectedInstallment, setSelectedInstallment] = useState("full_payment");
+  // 3+ installments: chosen count (3–6)
+  const [installmentCount,    setInstallmentCount]    = useState(MIN_INSTALLMENTS);
   const [showPaySchedule,     setShowPaySchedule]     = useState(false);
   const [paymentMethod,       setPaymentMethod]       = useState("paystack");
   const [copiedField,         setCopiedField]         = useState(null);
@@ -103,26 +140,35 @@ const { cohort, isEarlyBird } = useCohort();
       if (!raw) return;
       const lead = JSON.parse(raw);
       if ((Date.now() - new Date(lead.savedAt)) / 86_400_000 >= 7) return;
-      if (lead.name)           setFormData(p => ({ ...p, name:      lead.name }));
-      if (lead.email)          setFormData(p => ({ ...p, email:     lead.email }));
-      if (lead.phone)          setFormData(p => ({ ...p, phone:     lead.phone }));
-      if (lead.classType)      setFormData(p => ({ ...p, classType: lead.classType }));
-      if (lead.pricingType)    setPricingType(lead.pricingType);
-      if (lead.selectedModules?.length) setSelectedModules(lead.selectedModules);
-      if (lead.paymentPlan)    setSelectedInstallment(lead.paymentPlan);
+      if (lead.name)                       setFormData(p => ({ ...p, name:      lead.name }));
+      if (lead.email)                      setFormData(p => ({ ...p, email:     lead.email }));
+      if (lead.phone)                      setFormData(p => ({ ...p, phone:     lead.phone }));
+      if (lead.classType)                  setFormData(p => ({ ...p, classType: lead.classType }));
+      if (lead.pricingType)                setPricingType(lead.pricingType);
+      if (lead.selectedModules?.length)    setSelectedModules(lead.selectedModules);
+      if (lead.paymentPlan) {
+        // migrate old key name → new key name
+        const migratedPlan = lead.paymentPlan === "three_installments"
+          ? "three_plus_installments"
+          : lead.paymentPlan;
+        setSelectedInstallment(migratedPlan);
+      }
+      if (lead.installmentCount)           setInstallmentCount(lead.installmentCount);
     } catch { /* ignore */ }
   }, []);
 
-  const plans = getInstallmentPlans(isEarlyBird);
+  const plans = getInstallmentPlans(isEarlyBird, installmentCount);
 
   const moduleTotal = selectedModules.reduce((sum, id) => {
     const m = INDIVIDUAL_MODULES.find(m => m.id === id);
     return sum + (m?.price || 0);
   }, 0);
 
-  const totalAmount = pricingType === "fullstack" ? plans[selectedInstallment].total : moduleTotal;
-  const isInstallment = pricingType === "fullstack" && selectedInstallment !== "full_payment";
-  const firstInstallmentAmount = isInstallment ? plans[selectedInstallment].installments[0].amount : totalAmount;
+  // Guard: if a stale/unknown key slips through, fall back to full_payment
+  const safePlan = plans[selectedInstallment] ?? plans["full_payment"];
+  const totalAmount            = pricingType === "fullstack" ? safePlan.total : moduleTotal;
+  const isInstallment          = pricingType === "fullstack" && selectedInstallment !== "full_payment";
+  const firstInstallmentAmount = isInstallment ? safePlan.installments[0].amount : totalAmount;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -178,8 +224,10 @@ const { cohort, isEarlyBird } = useCohort();
     const leadData = {
       ...formData, pricingType,
       selectedModules: pricingType === "individual" ? selectedModules : [],
-      totalAmount, paymentPlan: pricingType === "fullstack" ? selectedInstallment : null,
-      earlyBirdUsed: isEarlyBird,
+      totalAmount,
+      paymentPlan:      pricingType === "fullstack" ? selectedInstallment : null,
+      installmentCount: selectedInstallment === "three_plus_installments" ? installmentCount : null,
+      earlyBirdUsed:    isEarlyBird,
     };
     localStorage.setItem("deboik_lead", JSON.stringify({ ...leadData, savedAt: new Date().toISOString() }));
     await saveLeadToSlack(leadData, "form_completed");
@@ -189,62 +237,58 @@ const { cohort, isEarlyBird } = useCohort();
   };
 
   const handleMakePayment = async () => {
-  if (paymentMethod === "paystack") {
-    setLoading(true);
-    sendGAEvent("event", "button_clicked", { value: "payment_made" });
-    try {
-      const res = await fetch("/api/payment/initialize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          // student info
-          ...formData,
-          // plan selection
-          pricingType,
-          selectedModules: pricingType === "individual" ? selectedModules : [],
-          paymentPlan:     pricingType === "fullstack" ? selectedInstallment : null,
-          // amounts — backend uses these to charge the right figure
-          totalAmount,
-          isInstallment,
-          firstInstallmentAmount,
-          // cohort context
-          earlyBirdUsed: isEarlyBird,
-          cohortId:      cohort?.id ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (data.authorizationUrl) window.location.href = data.authorizationUrl;
-      else alert("Failed to initialise payment. Please try again.");
-    } catch {
-      alert("An error occurred. Please try again.");
-    } finally {
-      setLoading(false);
+    if (paymentMethod === "paystack") {
+      setLoading(true);
+      sendGAEvent("event", "button_clicked", { value: "payment_made" });
+      try {
+        const res = await fetch("/api/payment/initialize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            pricingType,
+            selectedModules:  pricingType === "individual" ? selectedModules : [],
+            paymentPlan:      pricingType === "fullstack" ? selectedInstallment : null,
+            installmentCount: selectedInstallment === "three_plus_installments" ? installmentCount : null,
+            totalAmount,
+            isInstallment,
+            firstInstallmentAmount,
+            earlyBirdUsed: isEarlyBird,
+            cohortId:      cohort?.id ?? null,
+          }),
+        });
+        const data = await res.json();
+        if (data.authorizationUrl) window.location.href = data.authorizationUrl;
+        else alert("Failed to initialise payment. Please try again.");
+      } catch {
+        alert("An error occurred. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      const narration = generateNarration();
+      localStorage.setItem("deboik_pending_payment", JSON.stringify({
+        ...formData, pricingType, paymentMethod, narration,
+        amount: totalAmount, date: new Date().toISOString(),
+      }));
+      await saveLeadToSlack(
+        {
+          ...formData, pricingType, totalAmount,
+          paymentPlan:      selectedInstallment,
+          installmentCount: selectedInstallment === "three_plus_installments" ? installmentCount : null,
+          paymentMethod:    "bank", narration,
+          earlyBirdUsed:    isEarlyBird,
+          cohortId:         cohort?.id ?? null,
+        },
+        "bank_transfer_initiated"
+      );
+      setBankTransferDone(true);
     }
-  } else {
-    // bank transfer path — unchanged
-    const narration = generateNarration();
-    localStorage.setItem("deboik_pending_payment", JSON.stringify({
-      ...formData, pricingType, paymentMethod, narration,
-      amount: totalAmount, date: new Date().toISOString(),
-    }));
-    await saveLeadToSlack(
-      {
-        ...formData, pricingType, totalAmount,
-        paymentPlan: selectedInstallment,
-        paymentMethod: "bank", narration,
-        earlyBirdUsed: isEarlyBird,
-        cohortId: cohort?.id ?? null,
-      },
-      "bank_transfer_initiated"
-    );
-    setBankTransferDone(true);
-  }
-};
+  };
 
   // ── Step 1 ──────────────────────────────────────────────────────────────────
   const renderStep1 = () => (
     <div className="academy-card rounded-2xl p-8">
-      {/* CohortBanner — fully integrated and positioned */}
       <CohortBanner variant="full" className="mb-8" />
 
       <h2 className="text-2xl font-bold text-white mb-2">Choose Your Plan</h2>
@@ -291,7 +335,9 @@ const { cohort, isEarlyBird } = useCohort();
                       {plan.badge}
                     </span>
                   )}
-                  <p className="text-white font-bold text-sm mb-1">{plan.name}</p>
+                  <p className="text-white font-bold text-sm mb-1">
+                    {id === "three_plus_installments" ? `${installmentCount}+ Installments` : plan.name}
+                  </p>
                   <p className="text-academy-yellow text-xl font-bold">{fmt(plan.total)}</p>
                   <p className="text-green-400 text-xs mt-1">{plan.savings}</p>
                   {isInstallment && selectedInstallment === id && (
@@ -300,6 +346,56 @@ const { cohort, isEarlyBird } = useCohort();
                 </button>
               ))}
             </div>
+
+            {/* ── 3+ Installments: count selector ─────────────────────────── */}
+            {selectedInstallment === "three_plus_installments" && (
+              <div className="mt-3 p-4 bg-academy-deep/60 border border-academy-yellow/20 rounded-xl">
+                <p className="text-gray-300 text-sm font-medium mb-3">
+                  How many installments?
+                </p>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setInstallmentCount(c => Math.max(MIN_INSTALLMENTS, c - 1))}
+                    disabled={installmentCount <= MIN_INSTALLMENTS}
+                    className="text-academy-yellow disabled:opacity-30 transition-opacity hover:scale-110"
+                  >
+                    <IoRemoveCircleOutline size={28} />
+                  </button>
+
+                  <div className="flex gap-2 flex-1 justify-center">
+                    {Array.from({ length: MAX_INSTALLMENTS - MIN_INSTALLMENTS + 1 }, (_, i) => {
+                      const n = MIN_INSTALLMENTS + i;
+                      return (
+                        <button
+                          key={n}
+                          onClick={() => setInstallmentCount(n)}
+                          className={`w-10 h-10 rounded-lg text-sm font-bold border-2 transition-all ${
+                            installmentCount === n
+                              ? "border-academy-yellow bg-academy-yellow text-academy-dark"
+                              : "border-academy-primary/30 text-gray-400 hover:border-academy-primary/60 hover:text-white"
+                          }`}
+                        >
+                          {n}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    onClick={() => setInstallmentCount(c => Math.min(MAX_INSTALLMENTS, c + 1))}
+                    disabled={installmentCount >= MAX_INSTALLMENTS}
+                    className="text-academy-yellow disabled:opacity-30 transition-opacity hover:scale-110"
+                  >
+                    <IoAddCircleOutline size={28} />
+                  </button>
+                </div>
+
+                <div className="mt-3 flex justify-between text-xs text-gray-500">
+                  <span>{installmentCount} payments of ~{fmt(Math.floor(plans.three_plus_installments.total / installmentCount))}</span>
+                  <span>Total: {fmt(plans.three_plus_installments.total)}</span>
+                </div>
+              </div>
+            )}
 
             {showPaySchedule && (
               <div className="mt-4 p-4 bg-academy-deep/50 border border-academy-primary/20 rounded-xl">
@@ -373,7 +469,9 @@ const { cohort, isEarlyBird } = useCohort();
         onClick={() => {
           if (pricingType === "individual" && selectedModules.length === 0) {
             setErrors({ modules: "Please select at least one module" });
-          } else { setStep(2); }
+          } else {
+            setStep(2);
+          }
         }}
         className="btn-primary w-full text-lg py-4 rounded-xl font-bold"
       >
@@ -415,20 +513,31 @@ const { cohort, isEarlyBird } = useCohort();
           </div>
         ))}
 
+        {/* ── Class Preference ──────────────────────────────────────────────── */}
         <div>
           <label className="block text-gray-300 mb-1.5 text-sm font-medium">Class Preference</label>
           <div className="flex gap-3">
-            {[["online", "Online"], ["offline","Offline"]].map(([val, label]) => (
-              <button key={val} onClick={() => setFormData(p => ({ ...p, classType: val }))}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-medium border-2 transition-all ${
-                  formData.classType === val
-                    ? "border-academy-yellow bg-academy-yellow/10 text-white"
-                    : "border-academy-primary/30 text-gray-400 hover:text-white"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+            {/* Online */}
+            <button
+              onClick={() => setFormData(p => ({ ...p, classType: "online" }))}
+              className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-medium border-2 transition-all ${
+                formData.classType === "online"
+                  ? "border-academy-yellow bg-academy-yellow/10 text-white"
+                  : "border-academy-primary/30 text-gray-400 hover:text-white"
+              }`}
+            >
+              <span className="block font-semibold">Online</span>
+              <span className="block text-xs font-normal mt-0.5 text-gray-400">Live Zoom sessions</span>
+            </button>
+
+            {/* Onsite — disabled */}
+            <button
+              disabled
+              className="flex-1 py-2.5 px-3 rounded-lg text-sm font-medium border-2 border-academy-primary/20 text-gray-600"
+            >
+              <span className="block font-semibold">offline</span>
+              <span className="block text-xs font-normal mt-0.5">In-person at our facility</span>
+            </button>
           </div>
         </div>
       </div>
@@ -444,7 +553,11 @@ const { cohort, isEarlyBird } = useCohort();
             </div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-gray-400">Payment Plan</span>
-              <span className="text-white">{plans[selectedInstallment].name}</span>
+              <span className="text-white">
+                {selectedInstallment === "three_plus_installments"
+                  ? `${installmentCount} Installments`
+                  : plans[selectedInstallment].name}
+              </span>
             </div>
             {isInstallment && (
               <div className="flex justify-between text-sm mb-2">
@@ -491,7 +604,9 @@ const { cohort, isEarlyBird } = useCohort();
           <div>
             <h2 className="text-2xl font-bold text-white">Complete Payment</h2>
             <p className="text-gray-400 text-sm mt-1">
-              {isInstallment ? `Pay ${fmt(firstInstallmentAmount)} now to secure your spot` : `Pay ${fmt(totalAmount)} to complete enrollment`}
+              {isInstallment
+                ? `Pay ${fmt(firstInstallmentAmount)} now to secure your spot`
+                : `Pay ${fmt(totalAmount)} to complete enrollment`}
             </p>
           </div>
           <button onClick={() => setStep(2)} className="text-gray-400 hover:text-white transition-colors">
@@ -504,7 +619,11 @@ const { cohort, isEarlyBird } = useCohort();
             <div className="flex items-start gap-3">
               <IoCalendarOutline className="text-blue-400 text-lg flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-white font-semibold mb-1">{plans[selectedInstallment].name} Schedule</p>
+                <p className="text-white font-semibold mb-1">
+                  {selectedInstallment === "three_plus_installments"
+                    ? `${installmentCount} Installments Schedule`
+                    : `${plans[selectedInstallment].name} Schedule`}
+                </p>
                 <div className="space-y-1">
                   {plans[selectedInstallment].installments.map((inst, i) => (
                     <p key={i} className="text-gray-400">
@@ -522,7 +641,7 @@ const { cohort, isEarlyBird } = useCohort();
           <p className="text-gray-300 text-sm font-medium mb-3">Select Payment Method</p>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { id: "paystack", icon: <IoCard className="text-academy-yellow text-2xl mb-2" />,  title: "Card / USSD",    sub: "Instant · via Paystack"      },
+              { id: "paystack", icon: <IoCard className="text-academy-yellow text-2xl mb-2" />,  title: "Card / USSD",    sub: "Instant · via Paystack"       },
               { id: "bank",     icon: <IoQrCode className="text-academy-yellow text-2xl mb-2" />, title: "Bank Transfer", sub: "Manual · 1–24 hrs to confirm" },
             ].map(({ id, icon, title, sub }) => (
               <button key={id} onClick={() => setPaymentMethod(id)}
@@ -563,9 +682,33 @@ const { cohort, isEarlyBird } = useCohort();
                 </button>
               </div>
             ))}
+
             <p className="text-xs text-gray-500 flex items-start gap-2 pt-1">
               <span>ℹ️</span> Use the narration exactly as shown. Enrollment activates within 24 hours of confirmation.
             </p>
+
+            {/* ── Proof-of-payment note ──────────────────────────────────────── */}
+            <div className="mt-1 p-3 bg-academy-yellow/5 border border-academy-yellow/20 rounded-lg flex items-start gap-2">
+              <span className="text-lg flex-shrink-0">📩</span>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                After payment, send proof to{" "}
+                <a
+                  href="mailto:academy@deboik.com"
+                  className="text-academy-yellow hover:underline font-medium"
+                >
+                  academy@deboik.com
+                </a>{" "}
+                or WhatsApp{" "}
+                <a
+                  href="https://api.whatsapp.com/send/?phone=2349125273293&text=Hi%20there!&type=phone_number&app_absent=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-academy-yellow hover:underline font-medium"
+                >
+                  +234 912 527 3293
+                </a>
+              </p>
+            </div>
           </div>
         )}
 
@@ -580,7 +723,13 @@ const { cohort, isEarlyBird } = useCohort();
 
         <div className="mb-6 p-4 bg-academy-deep/40 border border-academy-primary/20 rounded-xl flex justify-between items-center">
           <div>
-            <p className="text-gray-400 text-xs">{pricingType === "fullstack" ? plans[selectedInstallment].name : `${selectedModules.length} module(s)`}</p>
+            <p className="text-gray-400 text-xs">
+              {pricingType === "fullstack"
+                ? selectedInstallment === "three_plus_installments"
+                  ? `${installmentCount} Installments`
+                  : plans[selectedInstallment].name
+                : `${selectedModules.length} module(s)`}
+            </p>
             <p className="text-gray-300 text-sm">{formData.name || "Student"}</p>
           </div>
           <div className="text-right">
