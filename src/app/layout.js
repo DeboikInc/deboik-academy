@@ -4,19 +4,23 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Deboik Academy | Learn JavaScript Once, Build for All Platforms',
-  description: 'Master JavaScript and build for every platform - Web, Mobile, and Desktop. Join Deboik Academy and become a full-stack developer.',
-  keywords: 'JavaScript, React, Node.js, React Native, Electron, Web Development, Academy, Programming Course',
-  
+  title: {
+    default:  "Deboik Academy | Learn JavaScript Once, Build for All Platforms",
+    template: "%s | Deboik Academy",
+  },
+  description: "Master JavaScript and build for every platform - Web, Mobile, and Desktop. Join Deboik Academy and become a full-stack developer.",
+  keywords: "JavaScript, React, Node.js, React Native, Electron, Web Development, Academy, Programming Course",
+
   openGraph: {
-    title: 'Deboik Academy | Learn JavaScript Once, Build for All Platforms',
-    description: 'Master JavaScript and build for every platform - Web, Mobile, and Desktop.',
-    siteName: 'Deboik Academy',
+    title:       "Deboik Academy | Learn JavaScript Once, Build for All Platforms",
+    description: "Master JavaScript and build for every platform - Web, Mobile, and Desktop.",
+    siteName:    "Deboik Academy",
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-icon.png', // If you have a mobile version
+    icon:  "/favicon.ico",
+    apple: "/apple-icon.png",
   },
+
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
   },

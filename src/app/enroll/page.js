@@ -18,6 +18,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CohortBanner from "@/components/CohortBanner";
 import { useCohort } from "@/hooks/useCohort";
+//import PageTitle from "@/components/EnrollPage";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -759,6 +760,7 @@ export default function Enroll() {
 
   return (
     <main className="min-h-screen bg-academy-dark">
+      <title>Enroll | Deboik Academy</title>
       <Navbar />
       <section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
