@@ -323,6 +323,7 @@ export default function AdminCohorts() {
         </div>
 
         {/* Filter tabs */}
+        
         <div className="flex gap-2 flex-wrap">
           {["all","upcoming","active","completed","cancelled"].map((s) => (
             <button key={s} onClick={() => setFilter(s)}
