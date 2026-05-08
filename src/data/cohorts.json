@@ -1,17 +1,17 @@
 [
   {
-    "name": "cohort 1",
-    "startDate": "2026-05-10",
-    "endDate": "2026-09-10",
-    "enrollmentDeadline": "2026-05-20",
+    "name": "Alpha",
+    "startDate": "2026-06-01",
+    "endDate": "2026-09-18",
+    "enrollmentDeadline": "2026-05-26",
     "maxSeats": 30,
     "status": "upcoming",
-    "classFormat": "hybrid",
+    "classFormat": "online",
     "packageIds": [],
     "notes": "",
     "isPublic": true,
-    "id": "1778101159337",
+    "id": "1778226721347",
     "enrolledCount": 0,
-    "createdAt": "2026-05-06T20:59:19.337Z"
+    "createdAt": "2026-05-08T07:52:01.347Z"
   }
 ]
