@@ -323,6 +323,7 @@ export default function AdminCohorts() {
         </div>
 
         {/* Filter tabs */}
+        
         <div className="flex gap-2 flex-wrap">
           {["all","upcoming","active","completed","cancelled"].map((s) => (
             <button key={s} onClick={() => setFilter(s)}
@@ -357,7 +358,7 @@ export default function AdminCohorts() {
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h3 className="text-white font-semibold text-lg">{cohort.name}</h3>
+                        <h3 className="text-white font-semibold text-lg capitalize">{cohort.name}</h3>
                         <StatusBadge status={cohort.status} />
                         {!cohort.isPublic && (
                           <span className="text-xs text-gray-500 bg-gray-500/10 border border-gray-500/20 px-2 py-0.5 rounded-full">Hidden</span>
