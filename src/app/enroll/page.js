@@ -50,7 +50,7 @@ const BANK_DETAILS = {
 
 // Minimum and maximum installments for the 3+ plan
 const MIN_INSTALLMENTS = 3;
-const MAX_INSTALLMENTS = 6;
+const MAX_INSTALLMENTS = 4;
 
 /**
  * Generates installment plans.
@@ -134,6 +134,12 @@ export default function Enroll() {
   const [bankTransferDone,    setBankTransferDone]    = useState(false);
   const [errors,              setErrors]              = useState({});
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", classType: "online" });
+
+  
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("step") === "2") setStep(2);
+}, []);
 
   useEffect(() => {
     try {

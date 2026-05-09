@@ -11,7 +11,7 @@ export default function PricingCardWrapper({ originalPrice, discountPrice, featu
       originalPrice={originalPrice}
       discountPrice={discountPrice}
       features={features}
-      onContinue={() => router.push("/enroll")}
+      onContinue={() => router.push("/enroll?step=2")}
     />
   );
 }
